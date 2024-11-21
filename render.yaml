@@ -1,18 +1,20 @@
 services:
   - type: web
     name: laravel-app
-    env: docker
+    env: php
     plan: free
-    dockerfilePath: ./Dockerfile
+    buildCommand: composer install && php artisan key:generate && php artisan migrate --force
+    startCommand: php artisan serve --host 0.0.0.0 --port 8080
+    autoDeploy: true
     envVars:
       - key: APP_ENV
         value: production
       - key: APP_KEY
-        sync: false
+        sync: false  # Esto indica que puedes definir el valor directamente en el entorno de Render
       - key: APP_DEBUG
         value: false
       - key: APP_URL
-        value: https://your-app.onrender.com
+        value: https://your-render-app-url.onrender.com
       - key: DB_CONNECTION
         value: mysql
       - key: DB_HOST
@@ -26,9 +28,3 @@ services:
       - key: DB_PASSWORD
         value: your-db-password
 
-  - type: mysql
-    name: laravel-database
-    plan: free
-    version: 8.0
-    databases:
-      - name: laravel
