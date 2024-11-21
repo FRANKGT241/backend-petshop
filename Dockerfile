@@ -23,11 +23,8 @@ RUN chown -R www-data:www-data /var/www/html \
 # Instala las dependencias de Laravel
 RUN composer install --no-dev --optimize-autoloader
 
-# Genera el APP_KEY
-RUN php artisan key:generate
-
 # Expone el puerto 80
 EXPOSE 80
 
 # Comando de inicio
-CMD ["apache2-foreground"]
+CMD php artisan key:generate && php artisan config:cache && apache2-foreground
