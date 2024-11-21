@@ -4,6 +4,7 @@ services:
     env: docker
     plan: free
     dockerfilePath: ./Dockerfile
+    dockerComposePath: ./docker-compose.yml # Añade esta línea para usar Docker Compose
     envVars:
       - key: APP_ENV
         value: production
@@ -13,22 +14,3 @@ services:
         value: false
       - key: APP_URL
         value: https://your-app.onrender.com
-      - key: DB_CONNECTION
-        value: mysql
-      - key: DB_HOST
-        value: your-mysql-service.internal
-      - key: DB_PORT
-        value: 3306
-      - key: DB_DATABASE
-        value: laravel
-      - key: DB_USERNAME
-        value: your-db-username
-      - key: DB_PASSWORD
-        value: your-db-password
-
-  - type: mysql
-    name: laravel-database
-    plan: free
-    version: 8.0
-    databases:
-      - name: laravel
