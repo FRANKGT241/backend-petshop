@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Users;
+use App\Models\users;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 
@@ -73,11 +73,11 @@ class loginController extends Controller
     }
 
     // Obtener todos los usuarios (clientes)
-    public function getUsers()
+    public function getusers()
     {
         try {
             // Filtramos solo los clientes por su role_id (2 en este caso)
-            $users = Users::where('role_id', 2)->get();
+            $users = users::where('role_id', 2)->get();
             return response()->json($users, 200);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Error al obtener usuarios', 'error' => $e->getMessage()], 500);
@@ -98,7 +98,7 @@ class loginController extends Controller
             ]);
 
             // Crear un nuevo cliente
-            $usuario = new Users();
+            $usuario = new users();
             $usuario->name = $request->name;
             $usuario->phone = $request->phone;
             $usuario->address = $request->address;
@@ -133,7 +133,7 @@ class loginController extends Controller
             ]);
 
             // Crear un nuevo usuario administrativo
-            $usuario = new Users();
+            $usuario = new users();
             $usuario->name = $request->name;
             $usuario->phone = $request->phone;
             $usuario->address = $request->address;
@@ -161,7 +161,7 @@ class loginController extends Controller
         \Log::info('Datos recibidos para la actualización:', $request->all());
 
         // Encuentra el usuario por ID
-        $usuario = Users::find($id);
+        $usuario = users::find($id);
 
         if (!$usuario) {
             \Log::error("Usuario con ID {$id} no encontrado");
@@ -212,7 +212,7 @@ class loginController extends Controller
     public function changeStatus($id)
     {
         try {
-            $usuario = Users::find($id);
+            $usuario = users::find($id);
 
             if (!$usuario) {
                 return response()->json(['message' => 'Usuario no encontrado'], 404);
