@@ -39,7 +39,7 @@ class loginController extends Controller
             return response()->json(['error' => 'Correo o contraseña incorrectos'], 401);
     
         } catch (\Illuminate\Database\QueryException $e) {
-            return response()->json(['message' => 'Error de base de datos', 'error' => $e->getMessage()], 500);
+            return response()->json(['message' => 'Error de base de datos', 'error' => $e->getMessage()], 403);
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json(['message' => 'Error de validación', 'errors' => $e->errors()], 422);
         } catch (\Exception $e) {
